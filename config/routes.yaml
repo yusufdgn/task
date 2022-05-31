@@ -1,3 +1,9 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+login:
+    path: /login
+    controller: App\Controller\AuthController::login
+    methods: [POST]
+
+jwt_test:
+    path: /jwt-test
+    controller: App\Controller\AuthController::JwtTest
+    methods: [GET]
