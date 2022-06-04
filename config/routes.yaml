@@ -3,7 +3,27 @@ login:
     controller: App\Controller\AuthController::login
     methods: [POST]
 
-jwt_test:
-    path: /jwt-test
-    controller: App\Controller\AuthController::JwtTest
+register:
+    path: /register
+    controller: App\Controller\AuthController::register
+    methods: [POST]
+
+subscription_post:
+    path: /subscription
+    controller: App\Controller\SubscriptionController::createSubscription
+    methods: [POST]
+
+subscription_get:
+    path: /subscription
+    controller: App\Controller\SubscriptionController::getSubscription
+    methods: [GET]
+
+subscription_delete:
+    path: /subscription
+    controller: App\Controller\SubscriptionController::deleteSubscription
+    methods: [DELETE]
+
+credit_cards_get:
+    path: /credit_cards
+    controller: App\Controller\CreditCardController::getCreditCards
     methods: [GET]

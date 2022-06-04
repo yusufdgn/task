@@ -10,10 +10,10 @@ use Symfony\Component\Validator\Validation;
 // @todo düzenlenecek
 class ValidationService
 {
-    public function validate($content, $contstraints)
+    public function validate($content, $constraints)
     {
         $validator = Validation::createValidator();
-        $violations = $validator->validate($content, $contstraints);
+        $violations = $validator->validate($content, $constraints);
 
         if (0 !== count($violations)) {
             $violationArray = [];

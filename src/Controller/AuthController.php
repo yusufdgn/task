@@ -3,8 +3,7 @@
 
 namespace App\Controller;
 
-use App\Service\Validation\Constraint\LoginConstraint;
-use App\Service\Jwt\TokenGenerator;
+use App\Service\AuthService;
 use App\Service\Validation\ValidationService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -16,17 +15,26 @@ use Symfony\Component\HttpFoundation\RequestStack;
  */
 class AuthController extends AbstractController
 {
-    public function login(RequestStack $requestStack)
+    /**
+     * @param RequestStack $requestStack
+     * @param AuthService $authService
+     * @return JsonResponse
+     */
+    public function login(RequestStack $requestStack, AuthService $authService): JsonResponse
     {
         $content = json_decode($requestStack->getCurrentRequest()->getContent(), true);
-        $validationService = new ValidationService();
-        $validationService->validate($content, LoginConstraint::rules());
-        $tokenGenerator = new TokenGenerator();
-        return new JsonResponse(['token'=>$tokenGenerator->generate($content)]);
+        return new JsonResponse(['token' => $authService->generateSubscriberToken($content)]);
     }
 
-    public function JwtTest(RequestStack $requestStack)
+    /**
+     * @param RequestStack $requestStack
+     * @param AuthService $authService
+     * @return JsonResponse
+     */
+    public function register(RequestStack $requestStack, AuthService $authService): JsonResponse
     {
-        dd("test");
+        $content = json_decode($requestStack->getCurrentRequest()->getContent(), true);
+        $subscriber = $authService->createSubscriber($content);
+        return new JsonResponse($subscriber->toArray());
     }
 }

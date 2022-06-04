@@ -37,7 +37,6 @@ class ExceptionListener
             }
         }
 
-        // sends the modified response object to the event
         $event->setResponse($response);
     }
 }

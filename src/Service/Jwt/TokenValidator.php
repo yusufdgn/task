@@ -12,7 +12,10 @@ use Lcobucci\JWT\Validation\Constraint\SignedWith;
 use Lcobucci\JWT\Validation\RequiredConstraintsViolated;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
-// @todo container'a alınacak
+/**
+ * Class TokenValidator
+ * @package App\Service\Jwt
+ */
 class TokenValidator
 {
     public function validate($jwt){
