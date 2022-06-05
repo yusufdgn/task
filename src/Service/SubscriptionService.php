@@ -63,28 +63,47 @@ class SubscriptionService
     {
         $this->validationService->validate($creditCardData, SubscriptionConstraint::creditCardRules());
 
-        $hasActiveSubscription = $this->entityManager->getRepository(Subscription::class)->findOneBy(['subscriberId' => $subscriberId, 'status' => 'active']);
-        if ($hasActiveSubscription !== null) {
+        $subscription = $this->entityManager->getRepository(Subscription::class)->findOneBy(['subscriberId' => $subscriberId, 'status' => 'active']);
+        if ($subscription !== null) {
             throw new BadRequestException("Subscriber has already an active subscription.");
         }
-
         $subscriptionData = $this->addSubscriberData($subscriberId, $creditCardData);
         $subscriptionData = $this->addDefaultSubscriptionData($subscriptionData);
+
         $response = $this->subscriptionManager->create($subscriptionData)['result'];
         $subscription = $this->assignResponseToEntity($response, new Subscription());
         $this->entityManager->persist($subscription);
         $this->entityManager->flush();
+
         return $response;
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function hookUpdateSubscription($subscriptionHookData)
+    {
+        $subscriptionHookData = $subscriptionHookData['parameters'];
+        $originalTransactionId = $subscriptionHookData['profile']['originalTransactionId'];
+        $subscription = $this->entityManager->getRepository(Subscription::class)->findOneBy(['originalTransactionId' => $originalTransactionId]);
+        if ($subscription === null) {
+            throw new BadRequestException("Subscriber has not an any subscription");
+        }
+
+        $subscription = $this->assignResponseToEntity($subscriptionHookData, $subscription);
+        $this->entityManager->persist($subscription);
+        $this->entityManager->flush();
     }
 
 
     /**
      * @param $subscriberId
+     * @return \Symfony\Contracts\HttpClient\ResponseInterface
      */
     public function getSubscription($subscriberId)
     {
-        $hasActiveSubscription = $this->entityManager->getRepository(Subscription::class)->findOneBy(['subscriberId' => $subscriberId]);
-        if ($hasActiveSubscription == null) {
+        $subscription = $this->entityManager->getRepository(Subscription::class)->findOneBy(['subscriberId' => $subscriberId]);
+        if ($subscription == null) {
             throw new BadRequestException("Subscriber has not an any subscription.");
         }
 

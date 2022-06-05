@@ -17,6 +17,7 @@ class SubscriptionController extends BaseController
      * @param RequestStack $requestStack
      * @param SubscriptionService $subscriptionService
      * @return JsonResponse
+     * @throws \Exception
      */
     public function createSubscription(RequestStack $requestStack, SubscriptionService $subscriptionService): JsonResponse
     {
@@ -40,6 +41,7 @@ class SubscriptionController extends BaseController
      * @param RequestStack $requestStack
      * @param SubscriptionService $subscriptionService
      * @return JsonResponse
+     * @throws \Exception
      */
     public function deleteSubscription(RequestStack $requestStack, SubscriptionService $subscriptionService): JsonResponse
     {
@@ -47,4 +49,5 @@ class SubscriptionController extends BaseController
         $response = $subscriptionService->deleteSubscription($this->getSubscriberId($requestStack), $content);
         return new JsonResponse($response);
     }
+
 }

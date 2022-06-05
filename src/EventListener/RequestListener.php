@@ -29,7 +29,8 @@ class RequestListener
     public function onKernelRequest(RequestEvent $event)
     {
         $pathInfo = $event->getRequest()->getPathInfo();
-        if ($pathInfo === '/login' || $pathInfo === '/register') {
+        $whiteList = ['/login', '/register', '/subscription-hook'];
+        if (in_array($pathInfo, $whiteList)) {
             return;
         }
 

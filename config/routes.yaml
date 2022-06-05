@@ -24,6 +24,11 @@ subscription_delete:
     methods: [DELETE]
 
 credit_cards_get:
-    path: /credit_cards
+    path: /credit-cards
     controller: App\Controller\CreditCardController::getCreditCards
     methods: [GET]
+
+subscription_hook:
+    path: /subscription-hook
+    controller: App\Controller\WebhookController::subscriptionHook
+    methods: [POST]

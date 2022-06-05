@@ -27,6 +27,11 @@ class Subscription
     public string $subscriberId;
 
     /**
+     * @ORM\Column(type="string", length=64)
+     */
+    public string $originalTransactionId;
+
+    /**
      * @ORM\Column(type="string", length=16)
      */
     public string $status;
@@ -131,6 +136,22 @@ class Subscription
     public function setSubscriberId(string $subscriberId): void
     {
         $this->subscriberId = $subscriberId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOriginalTransactionId(): string
+    {
+        return $this->originalTransactionId;
+    }
+
+    /**
+     * @param string $originalTransactionId
+     */
+    public function setOriginalTransactionId(string $originalTransactionId): void
+    {
+        $this->originalTransactionId = $originalTransactionId;
     }
 
     /**

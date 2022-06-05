@@ -4,15 +4,19 @@
 namespace App\Service\Validation;
 
 
+use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\Validator\Exception\ValidatorException;
 use Symfony\Component\Validator\Validation;
 
-// @todo düzenlenecek
 class ValidationService
 {
     public function validate($content, $constraints)
     {
         $validator = Validation::createValidator();
+        if ($content === null) {
+            throw new BadRequestException("Invalid json.");
+        }
+
         $violations = $validator->validate($content, $constraints);
 
         if (0 !== count($violations)) {
