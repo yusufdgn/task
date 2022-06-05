@@ -4,7 +4,7 @@
 Bearer TOKEN
 
 ### Register
-****POST**** `/register` </br>
+**POST** `/register` </br>
 ```
 {
   "email": "yd@****.com",
