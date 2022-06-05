@@ -1,30 +1,28 @@
 # API endpoints
 
-### Authentication
+#### Authentication
 Bearer TOKEN
 
-## Register
-*POST* /register </br>
-```
-{
-    "email": "yd@***.com",
+### Register
+****POST**** `/register` </br>
+`{
+    "email": "yd@****.com",
     "firstName": "Yusuf",
     "lastName": "Doğan",
     "country": "TR",
     "phoneNumber": "90507837****"
-}
-```
+}`
 
-## Login
-*POST* /login </br>
+### Login
+**POST** `/login` </br>
 ```
 {
     "email": "yd@****.com"
 }
 ```
 
-## Create Subscription
-*POST* /subscription </br>
+### Create Subscription
+**POST** `/subscription` </br>
 ```
 {
 	"cardNo": "4111111111111111",
@@ -35,11 +33,11 @@ Bearer TOKEN
 }
 ```
 
-## Read Subscription
-*GET* /subscription </br>
+### Read Subscription
+**GET** `/subscription` </br>
 
-## Delete Subscription
-*DELETE* /subscription </br>
+### Delete Subscription
+**DELETE** `/subscription` </br>
 ```
 {
 	"cancellationReason": "reason",
@@ -47,11 +45,11 @@ Bearer TOKEN
 }
 ```
 
-## Credit Card List
-*GET* /credit-cards </br>
+### Credit Card List
+**GET** `/credit-cards` </br>
 
-## Subscription Hook
-*POST* /subscription-hook </br>
+### Subscription Hook
+**POST** `/subscription-hook` </br>
 ```
 {
   "queue" : {
@@ -118,7 +116,7 @@ Bearer TOKEN
 }
 ```
 
-#Command
+## Command
 ```
 -> docker exec -it task_webserver bash
 -> php bin/console app:subscription-checker
