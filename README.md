@@ -1,23 +1,25 @@
-# API endpoints
+## API endpoints
 
-#### Authentication
+### Authentication
 Bearer TOKEN
 
 ### Register
 ****POST**** `/register` </br>
-`{
-    "email": "yd@****.com",
-    "firstName": "Yusuf",
-    "lastName": "Doğan",
-    "country": "TR",
-    "phoneNumber": "90507837****"
-}`
+```
+{
+  "email": "yd@****.com",
+  "firstName": "Yusuf",
+  "lastName": "Doğan",
+  "country": "TR",
+  "phoneNumber": "90507837****"
+}
+```
 
 ### Login
 **POST** `/login` </br>
 ```
 {
-    "email": "yd@****.com"
+  "email": "yd@****.com"
 }
 ```
 
@@ -25,11 +27,11 @@ Bearer TOKEN
 **POST** `/subscription` </br>
 ```
 {
-	"cardNo": "4111111111111111",
-	"cardOwner": "Yusuf Doğan",
-	"expireMonth": 12,
-	"expireYear": 22,
-	"cvv": "000"
+  "cardNo": "4111111111111111",
+  "cardOwner": "Yusuf Doğan",
+  "expireMonth": 12,
+  "expireYear": 22,
+  "cvv": "000"
 }
 ```
 
@@ -40,8 +42,8 @@ Bearer TOKEN
 **DELETE** `/subscription` </br>
 ```
 {
-	"cancellationReason": "reason",
-	"force": 1
+  "cancellationReason": "reason",
+  "force": 1
 }
 ```
 
