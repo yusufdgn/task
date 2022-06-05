@@ -4,9 +4,11 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\SubscriptionRepository;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass=SubscriptionRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  * Class Subscription
  * @package App\Entity
  */
@@ -88,6 +90,16 @@ class Subscription
      * @ORM\Column(type="string", length=32)
      */
     public string $currency;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    public ?\DateTime $updatedAt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    public ?\DateTime $createdAt;
 
     /**
      * @return int
@@ -327,6 +339,55 @@ class Subscription
     public function setCurrency(string $currency): void
     {
         $this->currency = $currency;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getUpdatedAt(): ?\DateTime
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param \DateTime|null $updatedAt
+     */
+    public function setUpdatedAt(?\DateTime $updatedAt): void
+    {
+        $this->updatedAt = $updatedAt;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getCreatedAt(): ?\DateTime
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param \DateTime|null $createdAt
+     */
+    public function setCreatedAt(?\DateTime $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtValue(): void
+    {
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+    }
+
+    /**
+     * @ORM\PreUpdate()
+     */
+    public function setUpdatedAtValue(): void
+    {
+        $this->updatedAt = new \DateTime();
     }
 
 }

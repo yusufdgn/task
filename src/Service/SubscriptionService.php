@@ -57,6 +57,7 @@ class SubscriptionService
      * @param $subscriberId
      * @param $creditCardData
      * @return mixed
+     * @throws \Exception
      */
     public function createSubscription($subscriberId, $creditCardData)
     {
@@ -70,7 +71,7 @@ class SubscriptionService
         $subscriptionData = $this->addSubscriberData($subscriberId, $creditCardData);
         $subscriptionData = $this->addDefaultSubscriptionData($subscriptionData);
         $response = $this->subscriptionManager->create($subscriptionData)['result'];
-        $subscription = $this->subscriptionConverter->convertResponseToEntity($response);
+        $subscription = $this->assignResponseToEntity($response, new Subscription());
         $this->entityManager->persist($subscription);
         $this->entityManager->flush();
         return $response;
@@ -94,6 +95,7 @@ class SubscriptionService
      * @param $subscriberId
      * @param $deleteData
      * @return mixed
+     * @throws \Exception
      */
     public function deleteSubscription($subscriberId, $deleteData)
     {
@@ -110,10 +112,21 @@ class SubscriptionService
         ];
 
         $response = $this->subscriptionManager->delete($data)['result'];
-        $subscription = $this->subscriptionConverter->convertDeleteResponseToEntity($response, $subscription);
+        $subscription = $this->assignResponseToEntity($response, $subscription);
         $this->entityManager->persist($subscription);
         $this->entityManager->flush();
         return $response;
+    }
+
+    /**
+     * @param $response
+     * @param $subscription
+     * @return Subscription
+     * @throws \Exception
+     */
+    public function assignResponseToEntity($response, $subscription): Subscription
+    {
+        return $this->subscriptionConverter->convertResponseToEntity($response, $subscription);
     }
 
     /**

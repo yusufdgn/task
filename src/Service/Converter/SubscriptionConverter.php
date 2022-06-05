@@ -9,9 +9,14 @@ use App\Entity\Subscription;
 class SubscriptionConverter implements ConverterInterface
 {
 
-    public function convertResponseToEntity($response): Subscription
+    /**
+     * @param $response
+     * @param Subscription $subscriptionEntity
+     * @return Subscription
+     * @throws \Exception
+     */
+    public function convertResponseToEntity($response, $subscriptionEntity): Subscription
     {
-        $subscriptionEntity = new Subscription();
         $subscriptionEntity->setSubscriberId($response['profile']['subscriberId']);
         $subscriptionEntity->setStatus($response['profile']['status']);
         $subscriptionEntity->setRealStatus($response['profile']['realStatus']);
@@ -24,17 +29,10 @@ class SubscriptionConverter implements ConverterInterface
         $subscriptionEntity->setPrice($response['package']['price']);
         $subscriptionEntity->setCurrency($response['package']['currency']);
 
-        return $subscriptionEntity;
-    }
-
-    public function convertDeleteResponseToEntity($response, Subscription $subscriptionEntity)
-    {
         if ($response['profile']['cancellation'] === null) {
             return $subscriptionEntity;
         }
 
-        $subscriptionEntity->setStatus($response['profile']['status']);
-        $subscriptionEntity->setRealStatus($response['profile']['realStatus']);
         $subscriptionEntity->setCanceled(true);
         $subscriptionEntity->setCancellationCode($response['profile']['cancellation']['code']);
         $subscriptionEntity->setCancellationDate(new \DateTime($response['profile']['cancellation']['date']));

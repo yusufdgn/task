@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity()
+ * @ORM\HasLifecycleCallbacks()
  * Class Subscriber
  * @package App\Entity
  */
@@ -49,6 +50,15 @@ class Subscriber
      */
     public string $phoneNumber;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    public \DateTime $updatedAt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    public \DateTime $createdAt;
 
     /**
      * @return int
@@ -161,6 +171,56 @@ class Subscriber
     {
         $this->phoneNumber = $phoneNumber;
     }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt(): \DateTime
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param \DateTime $updatedAt
+     */
+    public function setUpdatedAt(\DateTime $updatedAt): void
+    {
+        $this->updatedAt = $updatedAt;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt(): \DateTime
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param \DateTime $createdAt
+     */
+    public function setCreatedAt(\DateTime $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtValue(): void
+    {
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+    }
+
+    /**
+     * @ORM\PreUpdate()
+     */
+    public function setUpdatedAtValue(): void
+    {
+        $this->updatedAt = new \DateTime();
+    }
+
 
     public function toArray(): array
     {
