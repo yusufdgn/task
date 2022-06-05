@@ -1,7 +1,10 @@
 # API endpoints
 
+### Authentication
+Bearer TOKEN
+
 ## Register
-<strong>POST</strong> /register </br>
+*POST* /register </br>
 ```
 {
     "email": "yd@***.com",
@@ -13,7 +16,7 @@
 ```
 
 ## Login
-<strong>POST</strong> /login </br>
+*POST* /login </br>
 ```
 {
     "email": "yd@****.com"
@@ -21,7 +24,7 @@
 ```
 
 ## Create Subscription
-<strong>POST</strong> /subscription </br>
+*POST* /subscription </br>
 ```
 {
 	"cardNo": "4111111111111111",
@@ -33,10 +36,10 @@
 ```
 
 ## Read Subscription
-<strong>GET</strong> /subscription </br>
+*GET* /subscription </br>
 
 ## Delete Subscription
-<strong>DELETE</strong> /subscription </br>
+*DELETE* /subscription </br>
 ```
 {
 	"cancellationReason": "reason",
@@ -45,10 +48,10 @@
 ```
 
 ## Credit Card List
-<strong>GET</strong> /credit-cards </br>
+*GET* /credit-cards </br>
 
 ## Subscription Hook
-<strong>POST</strong> /subscription-hook </br>
+*POST* /subscription-hook </br>
 ```
 {
   "queue" : {
